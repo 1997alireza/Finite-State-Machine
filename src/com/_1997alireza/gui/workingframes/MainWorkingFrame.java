@@ -11,7 +11,7 @@ public class MainWorkingFrame extends JFrame{
 
     public MainWorkingFrame(final FiniteStateMachine finiteStateMachine){
         this.finiteStateMachine = finiteStateMachine;
-        this.setSize(800, 300);
+        this.setSize(770, 250);
         setLocationRelativeTo(null);
         setResizable(false);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -76,6 +76,17 @@ public class MainWorkingFrame extends JFrame{
             }
         });
         add(checkCycleB);
+
+        JButton deleteCyclesB = new JButton("Delete Cycles");
+        deleteCyclesB.setSize(150, 30);
+        deleteCyclesB.setLocation(560, 170);
+        deleteCyclesB.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                finiteStateMachine.deleteCycles();
+            }
+        });
+        add(deleteCyclesB);
 
 
     }

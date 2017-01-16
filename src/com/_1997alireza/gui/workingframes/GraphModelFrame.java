@@ -9,6 +9,7 @@ class GraphModelFrame extends JDialog {
         setLocationRelativeTo(null);
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         setModal(true);
+        setResizable(false);
 
         java.awt.Image image = Toolkit.getDefaultToolkit().createImage(imagePath);
         ImageIcon imageIcn = new ImageIcon(image);

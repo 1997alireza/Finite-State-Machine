@@ -93,8 +93,14 @@ public class FiniteStateMachine {
 
     public boolean hasCycle(){
         ArrayList<Integer> visited = new ArrayList<>();
-        visited.add(startState-1);
-        return hasCycle(visited, startState-1);
+        for(int i = 0; i < n; i++){
+            visited.add(i);
+            if(hasCycle(visited, i))
+                return true;
+            visited.clear();
+        }
+
+        return false;
     }
 
     private boolean hasCycle(ArrayList<Integer> visited, int pState){
@@ -112,5 +118,32 @@ public class FiniteStateMachine {
             }
         }
         return false;
+    }
+
+    public void deleteCycles(){
+        ArrayList<Integer> visited = new ArrayList<>();
+        for(int i = 0; i < n; i++){
+            visited.add(i);
+            deleteCycles(visited, i);
+            visited.clear();
+        }
+
+    }
+
+    private void deleteCycles(ArrayList<Integer> visited, int pState){
+        for(int i = 0; i < n; i++){
+            if(rowData[pState][i].size() != 0){
+                if(visited.contains(i)) {
+                    rowData[pState][i].clear();
+//                    visited.remove((Object)i);
+                }
+                else {
+                    visited.add(i);
+                    deleteCycles(visited, i);
+                    visited.remove((Object) i);
+                }
+
+            }
+        }
     }
 }
