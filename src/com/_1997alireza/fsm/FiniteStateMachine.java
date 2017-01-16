@@ -32,11 +32,19 @@ public class FiniteStateMachine {
         String graphStr = "";
         for(int i = 0; i < n; i++)
             for(int j = 0; j < n; j++) {
-                for (char event : rowData[i][j])
+                for (char event : rowData[i][j]) {
                     graphStr += (i + 1) + "->" + (j + 1) + "[label = " + event + "] ;";
+                }
                 if(rowData[i][j].size() == 0)
                     graphStr += (i+1) + ";";
             }
+
+        for(int i = 0; i < n; i++)
+            if(finalStates[i])
+                graphStr += (i+1) + "[shape = doublecircle];";
+        
+        graphStr += "start [label = start shape = point ];";
+        graphStr += "start -> " + startState + ";";
 
         return graphStr;
     }
