@@ -42,7 +42,7 @@ public class FiniteStateMachine {
         for(int i = 0; i < n; i++)
             if(finalStates[i])
                 graphStr += (i+1) + "[shape = doublecircle];";
-        
+
         graphStr += "start [label = start shape = point ];";
         graphStr += "start -> " + startState + ";";
 
