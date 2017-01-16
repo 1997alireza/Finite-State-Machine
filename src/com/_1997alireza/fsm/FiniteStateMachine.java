@@ -2,13 +2,50 @@ package com._1997alireza.fsm;
 
 import org.graphviz.GraphDrawer;
 
+import java.util.ArrayList;
+
 public class FiniteStateMachine {
+    private int n, startState;
+    private ArrayList<Character>[][] rowData;
+    private boolean [] finalStates;
+    public FiniteStateMachine(int n, ArrayList<Character>[][] rowData /* [startNode] [finishNode] */, int startState, boolean [] finalStates){
+        this.n = n;
+        this.rowData = rowData;
+        this.startState = startState;
+        this.finalStates = finalStates;
+    }
 
-    public FiniteStateMachine(int n, String [][] rowData, int startState, boolean [] finalStates){
-        //        String graphStr = "Hello->World; World -> Hello; Start -> Hello; Start -> World";
-//        GraphDrawer gd = new GraphDrawer();
-//        gd.draw("test", graphStr);
-        System.out.printf(rowData[0][0] + ",");
+    public String[] getAdjacencyList(){
+        String adjacencyList [] = new String[n];
 
+        for(int i = 0; i < n; i++) {
+            adjacencyList[i] = "";
+            for (int j = 0; j < n; j++) {
+                for (char event : rowData[i][j])
+                    adjacencyList[i] += "(" + (j + 1) + "," + event + ") ";
+            }
+        }
+        return adjacencyList;
+    }
+
+    private String getDotLang(){
+        String graphStr = "";
+        for(int i = 0; i < n; i++)
+            for(int j = 0; j < n; j++) {
+                for (char event : rowData[i][j])
+                    graphStr += (i + 1) + "->" + (j + 1) + "[label = " + event + "] ;";
+                if(rowData[i][j].size() == 0)
+                    graphStr += (i+1) + ";";
+            }
+
+        return graphStr;
+    }
+
+    public String makeGraphModelImage(){
+        String fileName = "result";
+        GraphDrawer gd = new GraphDrawer();
+        gd.draw(fileName, getDotLang());
+
+        return "res/result/" + fileName + ".png";
     }
 }
