@@ -90,4 +90,27 @@ public class FiniteStateMachine {
         return false;
 
     }
+
+    public boolean hasCycle(){
+        ArrayList<Integer> visited = new ArrayList<>();
+        visited.add(startState-1);
+        return hasCycle(visited, startState-1);
+    }
+
+    private boolean hasCycle(ArrayList<Integer> visited, int pState){
+        for(int i = 0; i < n; i++){
+            if(rowData[pState][i].size() != 0){
+                if(visited.contains(i))
+                    return true;
+
+                visited.add(i);
+                if(hasCycle(visited, i))
+                    return true;
+
+                visited.remove((Object)i);
+
+            }
+        }
+        return false;
+    }
 }

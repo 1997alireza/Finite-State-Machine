@@ -8,7 +8,6 @@ import java.awt.event.ActionListener;
 
 public class MainWorkingFrame extends JFrame{
     private FiniteStateMachine finiteStateMachine;
-    JLabel testResult;
 
     public MainWorkingFrame(final FiniteStateMachine finiteStateMachine){
         this.finiteStateMachine = finiteStateMachine;
@@ -46,6 +45,11 @@ public class MainWorkingFrame extends JFrame{
         testString.setLocation(300, 10);
         add(testString);
 
+        final JLabel testResult = new JLabel();
+        testResult.setSize(100, 30);
+        testResult.setLocation(720, 10);
+        add(testResult);
+
         JButton testStringB = new JButton("Test String");
         testStringB.setSize(150, 30);
         testStringB.setLocation(560, 10);
@@ -57,10 +61,22 @@ public class MainWorkingFrame extends JFrame{
         });
         add(testStringB);
 
-        testResult = new JLabel();
-        testResult.setSize(100, 30);
-        testResult.setLocation(720, 10);
-        add(testResult);
+        final JLabel checkCycleResult = new JLabel();
+        checkCycleResult.setSize(100, 30);
+        checkCycleResult.setLocation(720, 90);
+        add(checkCycleResult);
+
+        JButton checkCycleB = new JButton("Check Cycle");
+        checkCycleB.setSize(150, 30);
+        checkCycleB.setLocation(560, 90);
+        checkCycleB.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                checkCycleResult.setText(String.valueOf(finiteStateMachine.hasCycle()));
+            }
+        });
+        add(checkCycleB);
+
 
     }
 
