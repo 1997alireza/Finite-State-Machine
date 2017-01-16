@@ -1,7 +1,7 @@
 package com._1997alireza.fsm;
 
+import com._1997alireza.datastructures.ArraySet;
 import org.graphviz.GraphDrawer;
-
 import java.util.ArrayList;
 
 public class FiniteStateMachine {
@@ -55,5 +55,39 @@ public class FiniteStateMachine {
         gd.draw(fileName, getDotLang());
 
         return "res/result/" + fileName + ".png";
+    }
+
+    public boolean testString(String testString){
+        testString = testString.toUpperCase();
+
+        ArraySet<Integer> presentStates = new ArraySet<>();
+        presentStates.add(startState-1);
+        ArraySet<Integer> nextStates = new ArraySet<>();
+
+        for(char c : testString.toCharArray()){
+            if(presentStates.size() == 0)
+                return false;
+
+            for(int n : presentStates){
+                ArrayList<Character> [] nexts = rowData[n];
+                for(int i = 0; i < nexts.length; i++){
+                    if(nexts[i].contains(c))
+                        nextStates.add(i);
+                }
+            }
+
+            presentStates.clear();
+            for(int i = 0; i < nextStates.size(); i++)
+                presentStates.add(nextStates.get(i));
+            nextStates.clear();
+        }
+
+        for(int n : presentStates){
+            if(finalStates[n])
+                return true;
+        }
+
+        return false;
+
     }
 }
